@@ -1,0 +1,16 @@
+server:
+  port: 8035
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      base-path: /
+      path-mapping:
+        health: healthcheck
+
+itunes:
+  client: itunes.apple.com
