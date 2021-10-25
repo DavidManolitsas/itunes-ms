@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItunesArtist {
 
-    @JsonProperty private String wrapperType;
-    @JsonProperty private String artistType;
-    @JsonProperty private String artistName;
-    @JsonProperty private String artistLinkUrl;
-    @JsonProperty private long artistId;
-    @JsonProperty private String amgArtistId;
-    @JsonProperty private String primaryGenreName;
-    @JsonProperty private long primaryGenreId;
+  @JsonProperty private String wrapperType;
+  @JsonProperty private String artistType;
+  @JsonProperty private String artistName;
+  @JsonProperty private String artistLinkUrl;
+  @JsonProperty private long artistId;
+  @JsonProperty private String amgArtistId;
+  @JsonProperty private String primaryGenreName;
+  @JsonProperty private long primaryGenreId;
 }

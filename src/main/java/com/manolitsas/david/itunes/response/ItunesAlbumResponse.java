@@ -16,12 +16,11 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItunesAlbumResponse {
 
-    @JsonProperty private int resultCount;
-    @JsonProperty private List<ItunesAlbum> results;
+  @JsonProperty private int resultCount;
+  @JsonProperty private List<ItunesAlbum> results;
 
-    public ItunesAlbumResponse(int resultCount) {
-        this.resultCount = resultCount;
-        this.results = new ArrayList<>();
-    }
+  public ItunesAlbumResponse(int resultCount) {
+    this.resultCount = resultCount;
+    this.results = new ArrayList<>();
+  }
 }
-
