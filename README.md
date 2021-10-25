@@ -1,6 +1,14 @@
 # iTunes Microservice
 
-A microservice & Spring Boot 2 application to query the iTunes API to retrieve data.
+A microservice & Spring Boot 2 application to query the iTunes API to retrieve data
+regarding an Artist and their albums.
+
+## Endpoints
+
+* [GET] `/artists/{term}`
+* [GET] `/albums/{artistId}`
+
+Can view more information through the [Swagger](swagger.yml)
 
 ## Build Project
 
