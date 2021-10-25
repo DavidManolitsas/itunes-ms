@@ -1,6 +1,6 @@
 # iTunes Microservice
 
-A microservice & Spring Boot 2 application to queries the iTunes API to retrieve data.
+A microservice & Spring Boot 2 application to query the iTunes API to retrieve data.
 
 ## Build Project
 
