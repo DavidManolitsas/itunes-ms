@@ -1,4 +1,4 @@
-package com.manolitsas.david.web.model;
+package com.manolitsas.david.itunes.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ArtistsResponse {
+public class ItunesArtistsResponse {
 
   @JsonProperty private int resultCount;
   @JsonProperty private List<ItunesArtist> results;
 
-  public ArtistsResponse(int resultCount) {
+  public ItunesArtistsResponse(int resultCount) {
     this.resultCount = resultCount;
     this.results = new ArrayList<>();
   }

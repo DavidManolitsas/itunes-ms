@@ -2,6 +2,7 @@ package com.manolitsas.david.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.manolitsas.david.itunes.model.ItunesAlbum;
+import com.manolitsas.david.itunes.request.ItunesRequest;
 import com.manolitsas.david.itunes.response.ItunesAlbumResponse;
 import com.manolitsas.david.web.exceptions.CustomApiException;
 import com.manolitsas.david.web.model.Album;
@@ -13,22 +14,17 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AlbumService {
 
-  @Value("${itunes.client}")
-  private String itunesApi;
-
+  private final ItunesRequest request;
   private final ObjectMapper mapper;
-
-  public AlbumService(ObjectMapper mapper) {
-    this.mapper = mapper;
-  }
 
   /**
    * Get all albums for an artist.
@@ -43,7 +39,11 @@ public class AlbumService {
       // build itunes api URI request
       URI uri =
           new URI(
-              "https", itunesApi, "/lookup", String.format("id=%s&entity=album", artistId), null);
+              "https",
+              request.getEndpoint(),
+              "/lookup",
+              String.format("id=%s&entity=album", artistId),
+              null);
 
       log.info("Sending request to iTunes API [Request={}]", uri);
       List<ItunesAlbum> itunesAlbums =
@@ -62,6 +62,8 @@ public class AlbumService {
 
       // remove the artists details from itunes albums
       itunesAlbums.remove(0);
+
+      log.info("{} albums found for {}", itunesAlbums.size(), response.getArtist().getName());
 
       List<Album> albums = new ArrayList<>();
       for (ItunesAlbum album : itunesAlbums) {
