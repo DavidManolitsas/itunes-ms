@@ -1,5 +1,7 @@
 package com.manolitsas.david.services;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.manolitsas.david.itunes.model.ItunesAlbum;
 import com.manolitsas.david.itunes.response.ItunesAlbumResponse;
@@ -11,7 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +34,12 @@ public class AlbumService {
         this.mapper = mapper;
     }
 
+    /**
+     * Get all albums for an artist.
+     *
+     * @param artistId the artists itunes id
+     * @return the artists details and all albums made by the artist
+     */
     public ArtistsAlbumsResponse getArtistAlbums(String artistId) {
         ArtistsAlbumsResponse response = new ArtistsAlbumsResponse();
 
@@ -63,7 +74,7 @@ public class AlbumService {
 
             response.setAlbums(albums);
 
-        } catch (Exception e) {
+        } catch (URISyntaxException | IOException e) {
             throw CustomApiException.generalTechnicalException(e);
         }
 
