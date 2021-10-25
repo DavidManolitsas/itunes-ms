@@ -9,7 +9,7 @@ schemes:
   - "http"
   - "https"
 paths:
-  /artist/{artistId}:
+  /artists/{artistId}:
     get:
       tags:
         - "Album"
