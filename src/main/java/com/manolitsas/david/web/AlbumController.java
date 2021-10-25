@@ -11,16 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/albums")
 public class AlbumController {
 
-    private final AlbumService service;
+  private final AlbumService service;
 
-    public AlbumController(AlbumService service) {
-        this.service = service;
-    }
+  public AlbumController(AlbumService service) {
+    this.service = service;
+  }
 
-
-    @GetMapping("/{artistId}")
-    public ArtistsAlbumsResponse getArtistAlbums(@PathVariable String artistId) {
-        return service.getArtistAlbums(artistId);
-    }
-
+  @GetMapping("/{artistId}")
+  public ArtistsAlbumsResponse getArtistAlbums(@PathVariable String artistId) {
+    return service.getArtistAlbums(artistId);
+  }
 }
