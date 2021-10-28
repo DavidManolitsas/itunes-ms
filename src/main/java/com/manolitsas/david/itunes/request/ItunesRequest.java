@@ -10,9 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Itunes API request.
- */
+/** Itunes API request. */
 @Data
 @Builder
 @AllArgsConstructor

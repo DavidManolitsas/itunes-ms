@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Artists albums response model class.
- */
+/** Artists albums response model class. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

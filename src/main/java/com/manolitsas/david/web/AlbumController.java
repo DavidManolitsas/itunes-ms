@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Albums Controller class.
- */
+/** Albums Controller class. */
 @RestController
 @RequestMapping("/albums")
 public class AlbumController {

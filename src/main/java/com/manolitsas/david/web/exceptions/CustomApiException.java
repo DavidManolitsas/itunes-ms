@@ -4,9 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
-/**
- * Custom exception class to handle errors.
- */
+/** Custom exception class to handle errors. */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CustomApiException extends RuntimeException {

@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Artist model class.
- */
+/** Artist model class. */
 @Data
 @Builder
 @AllArgsConstructor
