@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Album model class.
+ */
 @Data
 @Builder
 @AllArgsConstructor

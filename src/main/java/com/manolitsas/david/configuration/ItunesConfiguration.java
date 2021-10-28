@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+/**
+ * Configure itunes API client and endpoint.
+ */
 @Configuration
 public class ItunesConfiguration {
 

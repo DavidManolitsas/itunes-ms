@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Itunes album API model.
+ */
 @Data
 @Builder
 @NoArgsConstructor

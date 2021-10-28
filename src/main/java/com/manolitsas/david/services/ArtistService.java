@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/**
+ * Artist service class.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,7 +26,7 @@ public class ArtistService {
   private final ObjectMapper mapper;
 
   /**
-   * Retrieve the 5 most relevant artists based on a search term
+   * Retrieve the 5 most relevant artists based on a search term.
    *
    * @param term search term
    * @return list of artists

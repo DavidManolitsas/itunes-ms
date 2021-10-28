@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Itunes API request.
+ */
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,6 +21,14 @@ public class ItunesRequest {
 
   private String endpoint;
 
+  /**
+   * Build URL request to be sent to iTunes API.
+   *
+   * @param scheme http scheme (https/http)
+   * @param path url path
+   * @param query url query
+   * @return url to be sent to iTunes API
+   */
   public URL buildRequest(String scheme, String path, String query) {
     try {
 
