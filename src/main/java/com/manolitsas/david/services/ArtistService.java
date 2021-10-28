@@ -7,8 +7,6 @@ import com.manolitsas.david.web.exceptions.CustomApiException;
 import com.manolitsas.david.web.model.Artist;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,36 +31,41 @@ public class ArtistService {
   public List<Artist> getArtists(String term) {
 
     try {
-      URI uri =
-          new URI(
+
+      URL urlRequest =
+          request.buildRequest(
               "https",
-              request.getEndpoint(),
               "/search",
-              String.format("term=%s&media=music&entity=musicArtist&limit=5", term),
-              null);
-      log.info("Sending request to iTunes API [Request={}]", uri);
+              String.format("term=%s&media=music&entity=musicArtist&limit=5", term));
 
-      ItunesArtistsResponse response = mapper.readValue(uri.toURL(), ItunesArtistsResponse.class);
+      log.info("Sending request to iTunes API [Request={}]", urlRequest);
 
-      log.info("{} artists found", response.getResultCount());
+      ItunesArtistsResponse itunesResponse =
+          mapper.readValue(urlRequest, ItunesArtistsResponse.class);
 
-      return response.getResults().stream()
-          .map(
-              artist -> {
-                try {
-                  return Artist.builder()
-                      .artistId(artist.getArtistId())
-                      .name(artist.getArtistName())
-                      .primaryGenre(artist.getPrimaryGenreName())
-                      .artistUrl(new URL(artist.getArtistLinkUrl()))
-                      .build();
-                } catch (MalformedURLException e) {
-                  throw CustomApiException.generalTechnicalException(e);
-                }
-              })
-          .collect(Collectors.toList());
-    } catch (URISyntaxException | IOException e) {
+      log.info("{} artists found", itunesResponse.getResultCount());
+      return mapItunesResponse(itunesResponse);
+
+    } catch (IOException e) {
       throw CustomApiException.generalTechnicalException(e);
     }
+  }
+
+  private List<Artist> mapItunesResponse(ItunesArtistsResponse itunesResponse) {
+    return itunesResponse.getResults().stream()
+        .map(
+            artist -> {
+              try {
+                return Artist.builder()
+                    .artistId(artist.getArtistId())
+                    .name(artist.getArtistName())
+                    .primaryGenre(artist.getPrimaryGenreName())
+                    .artistUrl(new URL(artist.getArtistLinkUrl()))
+                    .build();
+              } catch (MalformedURLException e) {
+                throw CustomApiException.generalTechnicalException(e);
+              }
+            })
+        .collect(Collectors.toList());
   }
 }
