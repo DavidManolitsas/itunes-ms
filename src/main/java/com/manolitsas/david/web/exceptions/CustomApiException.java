@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
+/** Custom exception class to handle errors. */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CustomApiException extends RuntimeException {
@@ -15,6 +16,15 @@ public class CustomApiException extends RuntimeException {
   private final HttpStatus httpStatus;
   private final String httpReasonPhrase;
 
+  /**
+   * Custom API exception constructor.
+   *
+   * @param message error message
+   * @param cause exception that was thrown
+   * @param code error code
+   * @param httpStatus http status
+   * @param httpReasonPhrase http reason phrase
+   */
   public CustomApiException(
       String message,
       Throwable cause,
@@ -27,6 +37,14 @@ public class CustomApiException extends RuntimeException {
     this.httpReasonPhrase = httpReasonPhrase;
   }
 
+  /**
+   * Custom API exception constructor.
+   *
+   * @param message error message
+   * @param code error code
+   * @param httpStatus http status
+   * @param httpReasonPhrase http reason phrase
+   */
   public CustomApiException(
       String message, String code, HttpStatus httpStatus, String httpReasonPhrase) {
     super(message);
@@ -35,6 +53,13 @@ public class CustomApiException extends RuntimeException {
     this.httpReasonPhrase = httpReasonPhrase;
   }
 
+  /**
+   * General technical exception.
+   *
+   * @param message error message
+   * @param cause exception that was thrown
+   * @return Custom API exception
+   */
   public static CustomApiException generalTechnicalException(String message, Throwable cause) {
     return new CustomApiException(
         message,
@@ -44,6 +69,12 @@ public class CustomApiException extends RuntimeException {
         HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
   }
 
+  /**
+   * General technical exception.
+   *
+   * @param cause exception that was thrown
+   * @return Custom API exception
+   */
   public static CustomApiException generalTechnicalException(Throwable cause) {
     return new CustomApiException(
         TECHNICAL_ERROR_MESSAGE,

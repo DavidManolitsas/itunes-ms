@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/** Itunes API artists response. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
