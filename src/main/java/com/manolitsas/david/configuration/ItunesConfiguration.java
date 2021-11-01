@@ -1,6 +1,7 @@
 package com.manolitsas.david.configuration;
 
-import com.manolitsas.david.itunes.request.ItunesRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.manolitsas.david.itunes.ItunesClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ public class ItunesConfiguration {
 
   @Bean
   @Primary
-  public ItunesRequest itunesRequestClient() {
-    return ItunesRequest.builder().endpoint(itunesApi).build();
+  public ItunesClient itunesRequestClient() {
+    return ItunesClient.builder().endpoint(itunesApi).mapper(new ObjectMapper()).build();
   }
 }

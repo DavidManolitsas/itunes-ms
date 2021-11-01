@@ -1,14 +1,13 @@
 package com.manolitsas.david.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.manolitsas.david.itunes.ItunesClient;
 import com.manolitsas.david.itunes.model.ItunesAlbum;
-import com.manolitsas.david.itunes.request.ItunesRequest;
-import com.manolitsas.david.itunes.response.ItunesAlbumResponse;
+import com.manolitsas.david.itunes.model.ItunesArtist;
+import com.manolitsas.david.itunes.model.ItunesArtistsAlbums;
 import com.manolitsas.david.web.exceptions.CustomApiException;
 import com.manolitsas.david.web.model.Album;
 import com.manolitsas.david.web.model.Artist;
 import com.manolitsas.david.web.model.ArtistsAlbumsResponse;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,8 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AlbumService {
 
-  private final ItunesRequest request;
-  private final ObjectMapper mapper;
+  private final ItunesClient itunesClient;
 
   /**
    * Get all albums for an artist.
@@ -36,40 +34,26 @@ public class AlbumService {
     ArtistsAlbumsResponse response = new ArtistsAlbumsResponse();
 
     try {
-      // build itunes api URI request
-      URL urlRequest =
-          request.buildRequest("https", "/lookup", String.format("id=%s&entity=album", artistId));
+      ItunesArtistsAlbums artistsAlbums = itunesClient.findAllAlbumsByArtistId(artistId);
 
-      log.info("Sending request to iTunes API [Request={}]", urlRequest);
-
-      ItunesAlbumResponse itunesResponse = mapper.readValue(urlRequest, ItunesAlbumResponse.class);
-      List<ItunesAlbum> itunesAlbums = itunesResponse.getResults();
-
-      if (itunesResponse.getResultCount() > 0) {
-        // get the artists details
-        ItunesAlbum artistDetails = itunesAlbums.get(0);
-        response.setArtist(mapArtist(artistDetails));
-        // remove the artists details from itunes albums list
-        itunesAlbums.remove(0);
-
-        log.info("{} albums found for {}", itunesAlbums.size(), response.getArtist().getName());
-        response.setAlbums(mapArtistsAlbums(itunesAlbums));
-      } else {
-        log.info("No albums found for artist ID {}", artistId);
+      if (artistsAlbums.getItunesAlbums() != null && artistsAlbums.getItunesArtist() != null) {
+        response.setArtist(mapArtist(artistsAlbums.getItunesArtist()));
+        response.setAlbums(mapArtistsAlbums(artistsAlbums.getItunesAlbums()));
       }
-    } catch (IOException e) {
+    } catch (MalformedURLException e) {
+      log.error("Itunes URL link is malformed");
       throw CustomApiException.generalTechnicalException(e);
     }
 
     return response;
   }
 
-  private Artist mapArtist(ItunesAlbum artistDetails) throws MalformedURLException {
+  private Artist mapArtist(ItunesArtist itunesArtist) throws MalformedURLException {
     return Artist.builder()
-        .artistId(artistDetails.getArtistId())
-        .name(artistDetails.getArtistName())
-        .primaryGenre(artistDetails.getPrimaryGenreName())
-        .artistUrl(new URL(artistDetails.getArtistLinkUrl()))
+        .artistId(itunesArtist.getArtistId())
+        .name(itunesArtist.getArtistName())
+        .primaryGenre(itunesArtist.getPrimaryGenreName())
+        .artistUrl(new URL(itunesArtist.getArtistLinkUrl()))
         .build();
   }
 

@@ -7,8 +7,9 @@ regarding an Artist and their albums.
 
 * [GET] `/artists/{term}`
 * [GET] `/albums/{artistId}`
+* [GET] `/healthcheck`
 
-Can view more information through the [Swagger](swagger.yml)
+For more information refer to the [Swagger](swagger.yml)
 
 ## Build Project
 
