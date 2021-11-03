@@ -1,7 +1,7 @@
 package com.manolitsas.david.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.manolitsas.david.itunes.ItunesClient;
+import com.manolitsas.david.client.ItunesClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.manolitsas.david.itunes.model;
+package com.manolitsas.david.client.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

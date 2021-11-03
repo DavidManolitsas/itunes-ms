@@ -1,11 +1,8 @@
 package com.manolitsas.david.services;
 
-import com.manolitsas.david.itunes.ItunesClient;
-import com.manolitsas.david.itunes.model.ItunesArtist;
-import com.manolitsas.david.web.exceptions.CustomApiException;
-import com.manolitsas.david.web.model.Artist;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.manolitsas.david.client.ItunesClient;
+import com.manolitsas.david.client.model.ItunesArtist;
+import com.manolitsas.david.model.Artist;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -33,17 +30,13 @@ public class ArtistService {
   private List<Artist> mapItunesResponse(List<ItunesArtist> artists) {
     return artists.stream()
         .map(
-            artist -> {
-              try {
-                return Artist.builder()
-                    .artistId(artist.getArtistId())
-                    .name(artist.getArtistName())
-                    .primaryGenre(artist.getPrimaryGenreName())
-                    .artistUrl(new URL(artist.getArtistLinkUrl()))
-                    .build();
-              } catch (MalformedURLException e) {
-                throw CustomApiException.generalTechnicalException(e);
-              }
+            itunesArtist -> {
+              Artist artist = new Artist();
+              artist.setArtistId(itunesArtist.getArtistId());
+              artist.setName(itunesArtist.getArtistName());
+              artist.setPrimaryGenreName(itunesArtist.getPrimaryGenreName());
+              artist.setArtistLinkUrl(itunesArtist.getArtistLinkUrl());
+              return artist;
             })
         .collect(Collectors.toList());
   }

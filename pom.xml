@@ -35,6 +35,8 @@
         <plugin.coveo-fmt.version>2.10</plugin.coveo-fmt.version>
         <plugin.sortpom.version>2.15.0</plugin.sortpom.version>
         <spring.boot.version>2.5.5</spring.boot.version>
+        <swagger-annotations.version>2.1.11</swagger-annotations.version>
+        <swagger-codegen.version>3.0.29</swagger-codegen.version>
     </properties>
     <dependencies>
         <dependency>
@@ -47,6 +49,16 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -135,5 +147,37 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger-codegen.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>false</verbose>
+                    <inputSpec>${project.basedir}/itunes_swagger.yaml</inputSpec>
+                    <language>spring</language>
+                    <apiPackage>com.manolitsas.david.api</apiPackage>
+                    <modelPackage>com.manolitsas.david.model</modelPackage>
+                    <generateSupportingFiles>false</generateSupportingFiles>
+                    <configOptions>
+                        <basePackage>com.manolitsas.david</basePackage>
+                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                        <dateLibrary>java8</dateLibrary>
+                        <useBeanValidation>true</useBeanValidation>
+                        <interfaceOnly>true</interfaceOnly>
+                    </configOptions>
+                    <typeMappings>
+                        <typeMapping>UUID=java.lang.String</typeMapping>
+                    </typeMappings>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

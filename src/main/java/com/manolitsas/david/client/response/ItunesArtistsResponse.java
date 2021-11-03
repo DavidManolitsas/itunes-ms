@@ -1,8 +1,8 @@
-package com.manolitsas.david.itunes.response;
+package com.manolitsas.david.client.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.manolitsas.david.itunes.model.ItunesArtist;
+import com.manolitsas.david.client.model.ItunesArtist;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
