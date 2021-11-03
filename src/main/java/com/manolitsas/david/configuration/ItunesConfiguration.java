@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /** Configure itunes API client and endpoint. */
-@Configuration
-public class ItunesConfiguration {
-
-  @Value("${itunes.client}")
-  private String itunesApi;
-
-  @Bean
-  @Primary
-  public ItunesClient itunesRequestClient() {
-    return ItunesClient.builder().endpoint(itunesApi).mapper(new ObjectMapper()).build();
-  }
-}
+//@Configuration
+//public class ItunesConfiguration {
+//
+//  @Value("${itunes.client}")
+//  private String itunesApi;
+//
+//  @Bean
+//  @Primary
+//  public ItunesClient itunesRequestClient() {
+//    return ItunesClient.builder().endpoint(itunesApi).mapper(new ObjectMapper()).build();
+//  }
+//}

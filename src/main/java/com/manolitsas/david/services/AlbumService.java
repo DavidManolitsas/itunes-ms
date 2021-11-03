@@ -33,7 +33,7 @@ public class AlbumService {
     ArtistsAlbumsResponse response = new ArtistsAlbumsResponse();
 
     try {
-      ItunesArtistsAlbums artistsAlbums = itunesClient.findAllAlbumsByArtistId(artistId);
+      ItunesArtistsAlbums artistsAlbums = itunesClient.findAllAlbumsByArtistId(artistId, "album");
 
       if (artistsAlbums.getItunesAlbums() != null && artistsAlbums.getItunesArtist() != null) {
         response.setArtist(mapArtist(artistsAlbums.getItunesArtist()));

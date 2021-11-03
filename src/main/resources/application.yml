@@ -12,5 +12,12 @@ management:
       path-mapping:
         health: healthcheck
 
-itunes:
-  client: itunes.apple.com
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+itunes-client:
+  name: itunesApi
+  url: https://itunes.apple.com

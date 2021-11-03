@@ -2,6 +2,7 @@ package com.manolitsas.david.services;
 
 import com.manolitsas.david.client.ItunesClient;
 import com.manolitsas.david.client.model.ItunesArtist;
+import com.manolitsas.david.client.model.ItunesArtistsResponse;
 import com.manolitsas.david.model.Artist;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,8 @@ public class ArtistService {
    * @return list of artists
    */
   public List<Artist> getArtists(String term) {
-    return mapItunesResponse(itunesClient.findAllArtistsByTermLimitBy5(term));
+    ItunesArtistsResponse itunesResponse = itunesClient.findAllArtistsByTermLimitBy5(term, "music", "musicArtist", "5");
+    return mapItunesResponse(itunesResponse.getResults());
   }
 
   private List<Artist> mapItunesResponse(List<ItunesArtist> artists) {
