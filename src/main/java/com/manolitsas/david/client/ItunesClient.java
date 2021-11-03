@@ -1,12 +1,12 @@
-package com.manolitsas.david.itunes;
+package com.manolitsas.david.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.manolitsas.david.itunes.model.ItunesAlbum;
-import com.manolitsas.david.itunes.model.ItunesArtist;
-import com.manolitsas.david.itunes.model.ItunesArtistsAlbums;
-import com.manolitsas.david.itunes.response.ItunesAlbumResponse;
-import com.manolitsas.david.itunes.response.ItunesArtistsResponse;
-import com.manolitsas.david.web.exceptions.CustomApiException;
+import com.manolitsas.david.client.model.ItunesAlbum;
+import com.manolitsas.david.client.model.ItunesArtist;
+import com.manolitsas.david.client.model.ItunesArtistsAlbums;
+import com.manolitsas.david.client.response.ItunesAlbumResponse;
+import com.manolitsas.david.client.response.ItunesArtistsResponse;
+import com.manolitsas.david.exceptions.CustomApiException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -65,11 +65,15 @@ public class ItunesClient {
         // remove the artists details from itunes albums list
         itunesAlbums.remove(0);
 
-        log.info("{} albums found for {}", itunesAlbums.size(), artist.getArtistName());
+        log.info(
+            "{} albums found for {} [ArtistId={}]",
+            itunesAlbums.size(),
+            artist.getArtistName(),
+            artistId);
         artistsAlbums.setItunesAlbums(itunesAlbums);
 
       } else {
-        log.info("No albums found for artist ID {}", artistId);
+        log.info("No albums found for artist ID '{}'", artistId);
       }
     } catch (IOException e) {
       throw CustomApiException.generalTechnicalException(e);

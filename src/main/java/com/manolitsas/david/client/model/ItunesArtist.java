@@ -1,4 +1,4 @@
-package com.manolitsas.david.itunes.model;
+package com.manolitsas.david.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

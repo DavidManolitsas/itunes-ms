@@ -1,4 +1,4 @@
-package com.manolitsas.david.web.exceptions;
+package com.manolitsas.david.exceptions;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

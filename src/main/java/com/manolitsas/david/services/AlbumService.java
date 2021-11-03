@@ -1,15 +1,14 @@
 package com.manolitsas.david.services;
 
-import com.manolitsas.david.itunes.ItunesClient;
-import com.manolitsas.david.itunes.model.ItunesAlbum;
-import com.manolitsas.david.itunes.model.ItunesArtist;
-import com.manolitsas.david.itunes.model.ItunesArtistsAlbums;
-import com.manolitsas.david.web.exceptions.CustomApiException;
-import com.manolitsas.david.web.model.Album;
-import com.manolitsas.david.web.model.Artist;
-import com.manolitsas.david.web.model.ArtistsAlbumsResponse;
+import com.manolitsas.david.client.ItunesClient;
+import com.manolitsas.david.client.model.ItunesAlbum;
+import com.manolitsas.david.client.model.ItunesArtist;
+import com.manolitsas.david.client.model.ItunesArtistsAlbums;
+import com.manolitsas.david.exceptions.CustomApiException;
+import com.manolitsas.david.model.Album;
+import com.manolitsas.david.model.Artist;
+import com.manolitsas.david.model.ArtistsAlbumsResponse;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -49,24 +48,23 @@ public class AlbumService {
   }
 
   private Artist mapArtist(ItunesArtist itunesArtist) throws MalformedURLException {
-    return Artist.builder()
-        .artistId(itunesArtist.getArtistId())
-        .name(itunesArtist.getArtistName())
-        .primaryGenre(itunesArtist.getPrimaryGenreName())
-        .artistUrl(new URL(itunesArtist.getArtistLinkUrl()))
-        .build();
+    Artist artist = new Artist();
+    artist.setArtistId(itunesArtist.getArtistId());
+    artist.setName(itunesArtist.getArtistName());
+    artist.setPrimaryGenreName(itunesArtist.getPrimaryGenreName());
+    artist.setArtistLinkUrl(itunesArtist.getArtistLinkUrl());
+    return artist;
   }
 
   private List<Album> mapArtistsAlbums(List<ItunesAlbum> itunesAlbums)
       throws MalformedURLException {
     List<Album> albums = new ArrayList<>();
-    for (ItunesAlbum album : itunesAlbums) {
-      albums.add(
-          Album.builder()
-              .albumId(album.getCollectionId())
-              .albumName(album.getCollectionName())
-              .albumUrl(new URL(album.getCollectionViewUrl()))
-              .build());
+    for (ItunesAlbum itunesAlbum : itunesAlbums) {
+      Album album = new Album();
+      album.setAlbumId(itunesAlbum.getCollectionId());
+      album.setAlbumName(itunesAlbum.getCollectionName());
+      album.setAlbumUrl(itunesAlbum.getCollectionViewUrl());
+      albums.add(album);
     }
 
     return albums;
