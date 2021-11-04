@@ -2,7 +2,6 @@ package com.manolitsas.david.client.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.manolitsas.david.client.model.ItunesAlbum;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
