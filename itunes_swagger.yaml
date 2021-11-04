@@ -93,3 +93,29 @@ components:
           type: "array"
           items:
             $ref: "#/components/schemas/Album"
+
+    Error:
+      description: "Presents error details"
+      required:
+        - errorCode
+        - timestamp
+        - status
+        - error
+        - message
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The date-time instance of when the error happened
+          example: "2017-07-21T17:32:28Z"
+        status:
+          type: integer
+          description: The status code
+          example: 200
+        error:
+          type: string
+          description: The error reason
+          example: OK
+        message:
+          type: string
+          description: User-friendly message about the error

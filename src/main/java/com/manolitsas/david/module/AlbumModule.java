@@ -2,11 +2,10 @@ package com.manolitsas.david.module;
 
 import static com.manolitsas.david.constant.Constants.ALBUM_ENTITY;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.manolitsas.david.client.ItunesFeignClient;
 import com.manolitsas.david.client.model.ItunesAlbum;
 import com.manolitsas.david.client.model.ItunesAlbumResponse;
+import com.manolitsas.david.exception.CustomApiException;
 import com.manolitsas.david.model.Album;
 import com.manolitsas.david.model.Artist;
 import com.manolitsas.david.model.ArtistsAlbumsResponse;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
 public class AlbumModule {
 
   private final ItunesFeignClient itunesClient;
-  private final ObjectMapper mapper;
 
   /**
    * Get all albums for an artist.
@@ -32,28 +30,22 @@ public class AlbumModule {
    * @return the artists details and all albums made by the artist
    */
   public ArtistsAlbumsResponse getArtistAlbums(String artistId) {
-    try {
-      ArtistsAlbumsResponse response = new ArtistsAlbumsResponse();
+    ArtistsAlbumsResponse response = new ArtistsAlbumsResponse();
 
-      String itunesJsonResponse = itunesClient.findAllAlbumsByArtistId(artistId, ALBUM_ENTITY);
-      ItunesAlbumResponse itunesResponse =
-          mapper.readValue(itunesJsonResponse, ItunesAlbumResponse.class);
+    ItunesAlbumResponse itunesResponse =
+        itunesClient.findAllAlbumsByArtistId(artistId, ALBUM_ENTITY);
 
-      if (!itunesResponse.getResults().isEmpty()) {
-
-        response.setArtist(mapArtist(itunesResponse.getResults().get(0)));
-        // remove the artists details from list of albums
-        itunesResponse.getResults().remove(0);
-        response.setAlbums(mapArtistsAlbums(itunesResponse.getResults()));
-
-        return response;
-      }
-
-    } catch (JsonProcessingException e) {
-      log.error("unable to map itunes response");
+    if (!itunesResponse.getResults().isEmpty()) {
+      response.setArtist(mapArtist(itunesResponse.getResults().get(0)));
+      // remove the artists details from list of albums
+      itunesResponse.getResults().remove(0);
+      response.setAlbums(mapArtistsAlbums(itunesResponse.getResults()));
+      return response;
+    } else {
+      log.info("No albums found for artist id [ArtistId={}]", artistId);
+      throw CustomApiException.notFoundException(
+          String.format("No albums found for artist id: %s", artistId));
     }
-
-    return null;
   }
 
   private Artist mapArtist(ItunesAlbum itunesArtistDetails) {

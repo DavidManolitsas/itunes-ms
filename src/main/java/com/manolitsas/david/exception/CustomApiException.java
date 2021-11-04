@@ -1,5 +1,9 @@
 package com.manolitsas.david.exception;
 
+import static com.manolitsas.david.constant.Constants.NOT_FOUND_ERROR_CODE;
+import static com.manolitsas.david.constant.Constants.TECHNICAL_ERROR_CODE;
+import static com.manolitsas.david.constant.Constants.TECHNICAL_ERROR_MESSAGE;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
@@ -8,9 +12,6 @@ import org.springframework.http.HttpStatus;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CustomApiException extends RuntimeException {
-
-  private static final String TECHNICAL_ERROR_CODE = "500";
-  private static final String TECHNICAL_ERROR_MESSAGE = "A Technical Exception has occurred";
 
   private final String code;
   private final HttpStatus httpStatus;
@@ -82,5 +83,13 @@ public class CustomApiException extends RuntimeException {
         TECHNICAL_ERROR_CODE,
         HttpStatus.INTERNAL_SERVER_ERROR,
         HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+  }
+
+  public static CustomApiException notFoundException(String message) {
+    return new CustomApiException(
+        message,
+        NOT_FOUND_ERROR_CODE,
+        HttpStatus.NOT_FOUND,
+        HttpStatus.NOT_FOUND.getReasonPhrase());
   }
 }
