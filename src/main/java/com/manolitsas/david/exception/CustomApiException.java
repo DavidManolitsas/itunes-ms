@@ -85,6 +85,12 @@ public class CustomApiException extends RuntimeException {
         HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
   }
 
+  /**
+   * Not found exception.
+   *
+   * @param message not found error message
+   * @return Custom API exception
+   */
   public static CustomApiException notFoundException(String message) {
     return new CustomApiException(
         message,

@@ -1,5 +1,6 @@
 package com.manolitsas.david.constant;
 
+/** Define project constants. */
 public class Constants {
 
   public static final String ALBUM_ENTITY = "album";
