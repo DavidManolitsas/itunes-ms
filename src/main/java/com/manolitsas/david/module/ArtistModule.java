@@ -5,12 +5,10 @@ import static com.manolitsas.david.constant.Constants.MUSIC_ARTIST_ENTITY;
 import static com.manolitsas.david.constant.Constants.MUSIC_MEDIA;
 
 import com.manolitsas.david.client.ItunesFeignClient;
-import com.manolitsas.david.client.model.ItunesArtist;
 import com.manolitsas.david.client.model.ItunesArtistsResponse;
 import com.manolitsas.david.exception.CustomApiException;
 import com.manolitsas.david.mapper.ItunesArtistMapper;
 import com.manolitsas.david.model.Artist;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
