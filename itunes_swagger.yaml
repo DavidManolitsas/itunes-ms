@@ -1,0 +1,121 @@
+openapi: '3.0.2'
+info:
+  title: "Spring Boot iTunes Microservice"
+  version: "1.1.0"
+  description: "Using the iTunes API lookup all albums and artists information"
+servers:
+  - description: Local Server
+    url: "http://localhost:8035"
+
+paths:
+  /albums/{artistId}:
+    get:
+      summary: "Get all albums from an artist"
+      operationId: "getAlbums"
+      tags:
+        - "Album"
+
+      parameters:
+        - in: path
+          name: artistId
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArtistsAlbumsResponse"
+        "404":
+          description: "Albums not found"
+
+  /artists/{term}:
+    get:
+      summary: "Get the 5 most relevant artists"
+      operationId: "getArtists"
+      tags:
+        - "Artist"
+
+      parameters:
+        - in: path
+          name: term
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Artist"
+        "404":
+          description: "Artists not found"
+
+components:
+  schemas:
+    Album:
+      type: "object"
+      properties:
+        albumId:
+          type: "integer"
+          format: "int64"
+        albumName:
+          type: "string"
+        albumUrl:
+          type: "string"
+          format: url
+    Artist:
+      type: "object"
+      properties:
+        artistId:
+          type: "integer"
+          format: "int64"
+        name:
+          type: "string"
+        primaryGenreName:
+          type: "string"
+        artistLinkUrl:
+          type: "string"
+
+    ArtistsAlbumsResponse:
+      type: "object"
+      properties:
+        artist:
+          $ref: "#/components/schemas/Artist"
+        albums:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Album"
+
+    Error:
+      description: "Presents error details"
+      required:
+        - errorCode
+        - timestamp
+        - status
+        - error
+        - message
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The date-time instance of when the error happened
+          example: "2017-07-21T17:32:28Z"
+        status:
+          type: integer
+          description: The status code
+          example: 200
+        error:
+          type: string
+          description: The error reason
+          example: OK
+        message:
+          type: string
+          description: User-friendly message about the error
