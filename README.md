@@ -3,7 +3,7 @@
 A microservice & Spring Boot 2 application to query the iTunes API to retrieve data
 regarding an Artist and their albums.
 
-## Endpoints
+## API Endpoints
 
 * [GET] `/artists/{term}`
 * [GET] `/albums/{artistId}`
