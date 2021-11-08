@@ -21,9 +21,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class ArtistModuleTest {
 
-  @InjectMocks ArtistModule module;
-  @Mock ItunesFeignClient itunesClient;
-  @Mock ItunesArtistMapper mapper;
+  @InjectMocks private ArtistModule module;
+  @Mock private ItunesFeignClient itunesClient;
+  @Mock private ItunesArtistMapper mapper;
 
   @Test
   void testGetArtists_whenValidRequest_thenReturnListOfArtists() {
