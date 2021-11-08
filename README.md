@@ -1,7 +1,8 @@
 # iTunes Microservice
 
-A microservice & Spring Boot 2 application to query the iTunes API to retrieve data
-regarding an Artist and their albums.
+Spring Boot Microservice that retrieves data from Apple's
+[iTunes API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html) 
+and collates it into concise information that can retrieved from the API endpoints.
 
 ## API Endpoints
 
