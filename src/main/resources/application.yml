@@ -21,3 +21,6 @@ feign:
 itunes-client:
   name: itunesApi
   url: https://itunes.apple.com
+
+logging.level:
+  com.manolitsas.david: debug
