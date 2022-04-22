@@ -4,10 +4,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version>
+        <version>2.5.12</version>
     </parent>
     <groupId>com.manolitsas.david</groupId>
-    <artifactId>itunesapi</artifactId>
+    <artifactId>itunes-microservice</artifactId>
     <version>1.1.0-SNAPSHOT</version>
     <developers>
         <developer>
@@ -27,7 +27,6 @@
         </site>
     </distributionManagement>
     <properties>
-        <h2.version>1.4.200</h2.version>
         <jackson-core.version>2.13.0</jackson-core.version>
         <javax-version>2.0.1.Final</javax-version>
         <junit.version>5.8.1</junit.version>
@@ -39,7 +38,7 @@
         <plugin.coveo-fmt.version>2.10</plugin.coveo-fmt.version>
         <plugin.sortpom.version>2.15.0</plugin.sortpom.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <spring.boot.version>2.5.5</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
         <swagger-annotations.version>2.1.11</swagger-annotations.version>
         <swagger-codegen.version>3.0.29</swagger-codegen.version>
     </properties>
@@ -59,12 +58,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.openfeign</groupId>
@@ -121,25 +114,32 @@
             <version>${spring.boot.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.boot.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>junit</artifactId>
-                    <groupId>junit</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                    <groupId>org.junit.vintage</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -231,6 +231,11 @@
                         <typeMapping>UUID=java.lang.String</typeMapping>
                     </typeMappings>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
             </plugin>
         </plugins>
     </build>
