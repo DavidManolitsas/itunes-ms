@@ -38,7 +38,7 @@
         <plugin.coveo-fmt.version>2.10</plugin.coveo-fmt.version>
         <plugin.sortpom.version>2.15.0</plugin.sortpom.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <spring.boot.version>2.5.5</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
         <swagger-annotations.version>2.1.11</swagger-annotations.version>
         <swagger-codegen.version>3.0.29</swagger-codegen.version>
     </properties>
